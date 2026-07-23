@@ -73,7 +73,7 @@ def parse_musicxml(file_path: str):
 
 
 # Test — DELETE LATER
-entities = parse_musicxml("/Users/alexyang/Desktop/objective-music-analysis/data/scores/liszt_transcendental_1.mxl")
+entities = parse_musicxml("data/scores/liszt_transcendental_1.mxl")
 
 for entity in entities[:50]:
     print(entity)
