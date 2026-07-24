@@ -2,3 +2,5 @@
 .DS_Store
 *.wav
 .venv
+__pycache__/
+*.py[cod]
