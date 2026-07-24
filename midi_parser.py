@@ -12,8 +12,10 @@ def parse_midi(file_path: str):
 
     midi_data = pretty_midi.PrettyMIDI(str(path))
 
+    # List that contains all the notes we have performed
     performed_notes = []
 
+    # A note ID that will keep increasing with each subsequent note
     note_id = 0
 
     for instrument_index, instrument in enumerate(midi_data.instruments):
@@ -22,21 +24,24 @@ def parse_midi(file_path: str):
         if instrument.is_drum:
             continue
 
+        # Edge case - if the note is malformed (i.e. the end time is <= the start time of the note)
+        if midi_note.end <= midi_note.start:
+            continue
+
         for midi_note in instrument.notes:
             performed_note = {
                 "id": note_id,
                 "pitch": midi_note.pitch,
                 "onset": float(midi_note.start),
                 "offset": float(midi_note.end),
-                "duration": float(
-                    midi_note.end - midi_note.start
-                ),
+                "duration": float(midi_note.end - midi_note.start),
                 "velocity": midi_note.velocity,
                 "instrument": instrument_index,
-                "instrument_name": instrument.name
+                "instrument_name": "Piano"
             }
 
             performed_notes.append(performed_note)
+            note_id += 1
 
     # Sort the performed notes by the time of playing
     performed_notes.sort(
