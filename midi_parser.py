@@ -5,7 +5,7 @@ import pretty_midi
 def parse_midi(file_path: str):
 
     path = Path(file_path)
-
+    
     if not path.exists():
         raise FileNotFoundError(f"MIDI file not found: {path}")
 
@@ -24,11 +24,12 @@ def parse_midi(file_path: str):
         if instrument.is_drum:
             continue
 
-        # Edge case - if the note is malformed (i.e. the end time is <= the start time of the note)
-        if midi_note.end <= midi_note.start:
-            continue
-
         for midi_note in instrument.notes:
+
+            # Edge case - if the note is malformed (i.e. the end time is <= the start time of the note)
+            if midi_note.end <= midi_note.start:
+                continue
+
             performed_note = {
                 "id": note_id,
                 "pitch": midi_note.pitch,
