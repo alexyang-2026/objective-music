@@ -62,10 +62,10 @@ def parse_musicxml(file_path: str):
 
     # Sort the musical notes by their offset time (instead of listing all RH notes and then all LH notes, list them according to their time position)
     musical_entities.sort(
-        key=lambda entity: {
+        key=lambda entity: (
             entity["offset"],
             entity["part"]
-        }
+        )
     )
 
 
